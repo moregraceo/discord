@@ -10,7 +10,6 @@ import asyncio
 from datetime import datetime
 from dotenv import load_dotenv
 import logging
-from keep_alive import keep_alive
 
 # Load environment variables
 load_dotenv()
@@ -1998,16 +1997,17 @@ async def on_command_error(ctx, error):
 
 # ==================== RUN BOT ====================
 if __name__ == "__main__":
-    # Start keep-alive server FIRST
-    keep_alive()
-    
+
     print("Starting ENHANCED Crypto Bot...")
     print(f"Token: {'✅ Loaded' if TOKEN else '❌ Missing'}")
-    print(f"Channels configured: {sum(1 for x in [ALERTS_CHANNEL_ID, PRICE_CHANNEL_ID, NEWS_CHANNEL_ID, CHAT_CHANNEL_ID] if x)}/4")
-    
+    print(
+        f"Channels configured: "
+        f"{sum(1 for x in [ALERTS_CHANNEL_ID, PRICE_CHANNEL_ID, NEWS_CHANNEL_ID, CHAT_CHANNEL_ID] if x)}/4"
+    )
+
     try:
         bot.run(TOKEN)
     except discord.LoginFailure:
-        print("❌ Failed to login. Check your DISCORD_TOKEN in .env file")
+        print("❌ Failed to login. Check your DISCORD_TOKEN environment variable")
     except Exception as e:
         print(f"❌ Error starting bot: {e}")
